@@ -25,5 +25,5 @@ Example:
 2 -  Build the custom system Oracle-based image. The image tag must be a fixed image tag as in the following example:
 
 ```
-$ docker build . --tag myregistry.example.com/system-oracle:2.13.0-1
+$ docker build . --tag myregistry.example.com/system-oracle:2.14.0-1
 ```
