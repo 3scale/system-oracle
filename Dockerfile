@@ -1,5 +1,4 @@
-FROM registry.redhat.io/3scale-amp2/system-rhel8:3scale2.15
-
+FROM registry.redhat.io/3scale-amp2/system-rhel9:3scale2.16.1
 USER root
 
 COPY ./oracle-client-files/instantclient-basic*-linux.*.zip \
@@ -13,9 +12,8 @@ ENV LD_LIBRARY_PATH=/opt/oracle/instantclient/ \
     TZ=utc \
     NLS_LANG=AMERICAN_AMERICA.UTF8
 
-RUN dnf install wget unzip make ruby-devel gcc gcc-c++ redhat-rpm-config libaio -y \
+RUN dnf install wget unzip make ruby-devel gcc gcc-c++ redhat-rpm-config libaio libnsl -y \
     && ./script/oracle/install-instantclient-packages.sh \
-    && ln -s /usr/lib64/libnsl.so.2 /usr/lib64/libnsl.so.1 \
-    && DB=oracle bundle install --jobs $(grep -c processor /proc/cpuinfo) --retry=5
+    && bundle install --local --jobs $(grep -c processor /proc/cpuinfo) --retry=5
 
 USER 1001
